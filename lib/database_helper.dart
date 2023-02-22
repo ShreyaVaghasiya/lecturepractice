@@ -5,7 +5,7 @@ class DatabaseHelper {
   //Declaration of all Variables
   static final _databaseName = "MyDatabse.db";
   static final _databaseVersion = 1;
-  static final _tableName = "MyTable";
+  static final tableName = "MyTable";
   static final columnId = 'Id';
   static final columnName = 'Name';
   static final columnAge = 'Age';
@@ -29,7 +29,7 @@ class DatabaseHelper {
     if (status!=null) {
       _database = await openDatabase(join(databasePath, _databaseName),
           onCreate: (database, version) {
-        return database.execute("CREATE TABLE $_tableName("
+        return database.execute("CREATE TABLE $tableName("
             "$columnId INTEGER PRIMARY KEY AUTOINCREMENT, "
             "$columnName TEXT, "
             "$columnAge TEXT)");
@@ -45,7 +45,7 @@ class DatabaseHelper {
     Future<bool> insert(Map<String,dynamic> row) async{
      final db = await database;
      try{
-        db?.insert(_tableName, row);
+        db?.insert(tableName, row);
      }
      catch(stackTrace){
        print(stackTrace);
@@ -53,11 +53,23 @@ class DatabaseHelper {
       return true;
     }
 
-  //query for all rows
+  //query for all rows (Read Operation)
    Future<List<Map<String,dynamic>>> queryAllRows() async{
      Database? db = await database;
-     result = await db?.query(_tableName);
+     result = await db?.query(tableName);
      return result.toList() ;
+   }
+
+   //Update operation
+   Future<int> updateStatic (Map<String,dynamic>? row,String? table,String? id) async {
+      Database? db = await database;
+      return await db!.update(table!,row!,where: '$columnId = ?',whereArgs: [id]);
+   }
+
+   //Delete operation
+   Future<int> delete (int id) async{
+      Database? db = await database;
+      return await db!.delete(tableName,where: '$columnId = ?',whereArgs: [id]);
    }
 }
 
