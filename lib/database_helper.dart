@@ -1,3 +1,4 @@
+import 'package:lecturepractice/Modelclass.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -40,21 +41,19 @@ class DatabaseHelper {
     }
     return _database;
   }
-
     //Insert operation on database
-    Future<bool> insert(Map<String,dynamic> row) async{
-     final db = await database;
-     try{
-        db?.insert(tableName, row);
-     }
-     catch(stackTrace){
-       print(stackTrace);
-     }
+    Future<bool> insert({required Person person}) async {
+      try {
+        final db = await database;
+        db?.insert(tableName, person.toMap());
+      }
+      catch (stackTrace) {
+        print(stackTrace);
+      }
       return true;
     }
-
   //query for all rows (Read Operation)
-   Future<List<Map<String,dynamic>>> queryAllRows() async{
+   Future<Person> queryAllRows() async{
      Database? db = await database;
      result = await db?.query(tableName);
      return result.toList() ;
