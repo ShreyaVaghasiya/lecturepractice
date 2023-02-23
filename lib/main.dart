@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
       ),
       body: FutureBuilder(
         future: dbHelper.queryAllRows(),
-        builder: (BuildContext context, AsyncSnapshot<List<Person>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<result>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
               itemCount: snapshot.data!.length,
