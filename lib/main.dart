@@ -72,23 +72,23 @@ class _MyAppState extends State<MyApp> {
             },
             child: Text("Insert")),
       ),
-      body: FutureBuilder(
-        future: dbHelper.queryAllRows(),
-        builder: (BuildContext context, AsyncSnapshot<List<result>> snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-                itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(snapshot.data![index].id.toString()),
-              );
-            });
-          }
-          else{
-                 return CircularProgressIndicator();
-          }
-        }
-      ),
+      // body: FutureBuilder(
+      //   future: dbHelper.queryAllRows(),
+      //   builder: (BuildContext context, AsyncSnapshot<List<result>> snapshot) {
+      //     if (snapshot.hasData) {
+      //       return ListView.builder(
+      //         itemCount: snapshot.data!.length,
+      //           itemBuilder: (context, index) {
+      //         return ListTile(
+      //           title: Text(snapshot.data![index].id.toString()),
+      //         );
+      //       });
+      //     }
+      //     else{
+      //            return CircularProgressIndicator();
+      //     }
+      //   }
+      // ),
     );
   }
 }
