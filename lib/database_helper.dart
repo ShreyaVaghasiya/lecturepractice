@@ -2,6 +2,7 @@ import 'package:lecturepractice/Modelclass.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import 'Modelclass.dart';
 class DatabaseHelper {
   //Declaration of all Variables
   static final _databaseName = "MyDatabse.db";
@@ -53,11 +54,19 @@ class DatabaseHelper {
       return true;
     }
   //query for all rows (Read Operation)
-   Future<Person> queryAllRows() async{
-     Database? db = await database;
-     result = await db?.query(tableName);
-     return result.toList() ;
-   }
+  //  Future<Person> queryAllRows() async{
+  //    Database? db = await database;
+  //    result = await db?.query(tableName);
+  //    return result.toList() ;
+  //  }
+
+  Future<List<Person>> getPerson() async {
+            Database? db = await database;
+            List<Map> list = await db!.rawQuery('SELECT * FROM PERSON');
+            List<Person> Person = [];
+            for(int i = 0;)
+
+  }
 
    //Update operation
    Future<int> updateStatic (Map<String,dynamic>? row,String? table,String? id) async {
